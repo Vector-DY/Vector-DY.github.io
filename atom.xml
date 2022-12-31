@@ -6,7 +6,7 @@
   <link href="http://dyang.com.cn/atom.xml" rel="self"/>
   
   <link href="http://dyang.com.cn/"/>
-  <updated>2022-12-31T16:00:04.487Z</updated>
+  <updated>2022-12-31T16:55:43.122Z</updated>
   <id>http://dyang.com.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>golang学习-即时通讯系统demo</title>
+    <link href="http://dyang.com.cn/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/"/>
+    <id>http://dyang.com.cn/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/</id>
+    <published>2022-12-31T16:30:46.000Z</published>
+    <updated>2022-12-31T16:55:43.122Z</updated>
+    
+    <content type="html"><![CDATA[<p>简易的即时通讯系统的模拟demo</p><h2 id="server构建"><a href="#server构建" class="headerlink" title="server构建"></a>server构建</h2><p>定义基本server类型及服务器接口</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">type Server struct &#123;</span><br><span class="line">Ip   string</span><br><span class="line">Port int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewServer(ip string, port int) *Server &#123;</span><br><span class="line">server := &amp;Server&#123;</span><br><span class="line">Ip:        ip,</span><br><span class="line">Port:      port,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Server) Start() &#123;</span><br><span class="line">//socket listen</span><br><span class="line">listener, err := net.Listen(&quot;tcp&quot;, fmt.Sprintf(&quot;%s:%d&quot;, s.Ip, s.Port))</span><br><span class="line">if err != nil &#123;</span><br><span class="line">fmt.Println(&quot;net.Listen err:&quot;, err)</span><br><span class="line">return</span><br><span class="line">&#125;</span><br><span class="line">//close listen socket</span><br><span class="line">defer listener.Close()</span><br><span class="line"></span><br><span class="line">//启动监听Message的goroutine</span><br><span class="line">go s.ListenMessager()</span><br><span class="line"></span><br><span class="line">for &#123;</span><br><span class="line">//accept</span><br><span class="line">conn, err := listener.Accept()</span><br><span class="line">if err != nil &#123;</span><br><span class="line">fmt.Println(&quot;listener accept err:&quot;, err)</span><br><span class="line">continue</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">///do handler</span><br><span class="line">go s.Handler(conn)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;简易的即时通讯系统的模拟demo&lt;/p&gt;
+&lt;h2 id=&quot;server构建&quot;&gt;&lt;a href=&quot;#server构建&quot; class=&quot;headerlink&quot; title=&quot;server构建&quot;&gt;&lt;/a&gt;server构建&lt;/h2&gt;&lt;p&gt;定义基本server类型及服务器接口&lt;/p&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>happynewyear</title>

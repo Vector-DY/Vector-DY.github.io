@@ -33,4 +33,13 @@
     <content><![CDATA[<p>苏轼有句话：“犯其至难而图其至远”，意思是说“向最难之处攻坚，追求最远大的目标”。路虽远，行则将至；事虽难，做则必成。只要有愚公移山的志气、滴水穿石的毅力，脚踏实地，埋头苦干，积跬步以至千里，就一定能够把宏伟目标变为美好现实。<br>新年的钟声即将敲响，让我们怀着对未来的美好向往，共同迎接2023年的第一缕阳光。<br>祝愿祖国繁荣昌盛、国泰民安！祝愿世界和平美好、幸福安宁！祝愿大家新年快乐、皆得所愿！ </p>
 ]]></content>
   </entry>
+  <entry>
+    <title>golang学习-即时通讯系统demo</title>
+    <url>/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/</url>
+    <content><![CDATA[<p>简易的即时通讯系统的模拟demo</p>
+<h2 id="server构建"><a href="#server构建" class="headerlink" title="server构建"></a>server构建</h2><p>定义基本server类型及服务器接口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type Server struct &#123;</span><br><span class="line">	Ip   string</span><br><span class="line">	Port int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewServer(ip string, port int) *Server &#123;</span><br><span class="line">	server := &amp;Server&#123;</span><br><span class="line">		Ip:        ip,</span><br><span class="line">		Port:      port,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Server) Start() &#123;</span><br><span class="line">	//socket listen</span><br><span class="line">	listener, err := net.Listen(&quot;tcp&quot;, fmt.Sprintf(&quot;%s:%d&quot;, s.Ip, s.Port))</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;net.Listen err:&quot;, err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	//close listen socket</span><br><span class="line">	defer listener.Close()</span><br><span class="line"></span><br><span class="line">	//启动监听Message的goroutine</span><br><span class="line">	go s.ListenMessager()</span><br><span class="line"></span><br><span class="line">	for &#123;</span><br><span class="line">		//accept</span><br><span class="line">		conn, err := listener.Accept()</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;listener accept err:&quot;, err)</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		///do handler</span><br><span class="line">		go s.Handler(conn)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h2>]]></content>
+  </entry>
 </search>
