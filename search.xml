@@ -21,8 +21,7 @@
   <entry>
     <title>newpapaername</title>
     <url>/2022/12/31/newpapaername/</url>
-    <content><![CDATA[<p>#test hexo</p>
-<pre><code>fum main()&#123;
+    <content><![CDATA[<h1 id="test-hexo"><a href="#test-hexo" class="headerlink" title="test hexo"></a>test hexo</h1><pre><code>fum main()&#123;
     print(&quot;hello hexo&quot;)
 &#125;
 </code></pre>
@@ -31,7 +30,7 @@
   <entry>
     <title>happynewyear</title>
     <url>/2022/12/31/happynewyear/</url>
-    <content><![CDATA[<p>苏轼有句话：“犯其至难而图其至远”，意思是说“向最难之处攻坚，追求最远大的目标”。路虽远，行则将至；事虽难，做则必成。只要有愚公移山的志气、滴水穿石的毅力，脚踏实地，埋头苦干，积跬步以至千里，就一定能够把宏伟目标变为美好现实。<br>新年的钟声即将敲响，让我们怀着对未来的美好向往，共同迎接2023年的第一缕阳光。<br>祝愿祖国繁荣昌盛、国泰民安！祝愿世界和平美好、幸福安宁！祝愿大家新年快乐、皆得所愿！</p>
+    <content><![CDATA[<p>苏轼有句话：“犯其至难而图其至远”，意思是说“向最难之处攻坚，追求最远大的目标”。路虽远，行则将至；事虽难，做则必成。只要有愚公移山的志气、滴水穿石的毅力，脚踏实地，埋头苦干，积跬步以至千里，就一定能够把宏伟目标变为美好现实。<br>新年的钟声即将敲响，让我们怀着对未来的美好向往，共同迎接2023年的第一缕阳光。<br>祝愿祖国繁荣昌盛、国泰民安！祝愿世界和平美好、幸福安宁！祝愿大家新年快乐、皆得所愿！ </p>
 ]]></content>
   </entry>
 </search>
