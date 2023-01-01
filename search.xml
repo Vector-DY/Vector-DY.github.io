@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>happynewyear</title>
+    <url>/2022/12/31/happynewyear/</url>
+    <content><![CDATA[<p>苏轼有句话：“犯其至难而图其至远”，意思是说“向最难之处攻坚，追求最远大的目标”。路虽远，行则将至；事虽难，做则必成。只要有愚公移山的志气、滴水穿石的毅力，脚踏实地，埋头苦干，积跬步以至千里，就一定能够把宏伟目标变为美好现实。<br>新年的钟声即将敲响，让我们怀着对未来的美好向往，共同迎接2023年的第一缕阳光。<br>祝愿祖国繁荣昌盛、国泰民安！祝愿世界和平美好、幸福安宁！祝愿大家新年快乐、皆得所愿！ </p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/12/31/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -28,19 +34,13 @@
 ]]></content>
   </entry>
   <entry>
-    <title>happynewyear</title>
-    <url>/2022/12/31/happynewyear/</url>
-    <content><![CDATA[<p>苏轼有句话：“犯其至难而图其至远”，意思是说“向最难之处攻坚，追求最远大的目标”。路虽远，行则将至；事虽难，做则必成。只要有愚公移山的志气、滴水穿石的毅力，脚踏实地，埋头苦干，积跬步以至千里，就一定能够把宏伟目标变为美好现实。<br>新年的钟声即将敲响，让我们怀着对未来的美好向往，共同迎接2023年的第一缕阳光。<br>祝愿祖国繁荣昌盛、国泰民安！祝愿世界和平美好、幸福安宁！祝愿大家新年快乐、皆得所愿！ </p>
-]]></content>
-  </entry>
-  <entry>
     <title>golang学习-即时通讯系统demo</title>
     <url>/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/</url>
-    <content><![CDATA[<h1 id="简易的即时通讯系统的模拟demo"><a href="#简易的即时通讯系统的模拟demo" class="headerlink" title="简易的即时通讯系统的模拟demo"></a>简易的即时通讯系统的模拟demo</h1><p>基本项目结构如下<br><img src="/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/tree.png"><br>项目地址： <a href="https://github.com/Vector-DY/Instant-Messaging-demo">https://github.com/Vector-DY/Instant-Messaging-demo</a></p>
+    <content><![CDATA[<h1 id="简易的即时通讯系统的模拟demo"><a href="#简易的即时通讯系统的模拟demo" class="headerlink" title="简易的即时通讯系统的模拟demo"></a>简易的即时通讯系统的模拟demo</h1><p>基本项目结构如下<br><img src="/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/tree.png"><br>项目地址： <a href="https://github.com/Vector-DY/Instant-Messaging-demo">https://github.com/Vector-DY/Instant-Messaging-demo</a></p>
 <h2 id="server构建"><a href="#server构建" class="headerlink" title="server构建"></a>server构建</h2><p>定义基本server类型及服务器接口</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type Server struct &#123;</span><br><span class="line">	Ip   string</span><br><span class="line">	Port int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewServer(ip string, port int) *Server &#123;</span><br><span class="line">	server := &amp;Server&#123;</span><br><span class="line">		Ip:        ip,</span><br><span class="line">		Port:      port,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Server) Start() &#123;</span><br><span class="line">	//socket listen</span><br><span class="line">	listener, err := net.Listen(&quot;tcp&quot;, fmt.Sprintf(&quot;%s:%d&quot;, s.Ip, s.Port))</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;net.Listen err:&quot;, err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	//close listen socket</span><br><span class="line">	defer listener.Close(）</span><br><span class="line"></span><br><span class="line">	for &#123;</span><br><span class="line">		//accept</span><br><span class="line">		conn, err := listener.Accept()</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;listener accept err:&quot;, err)</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		///do handler</span><br><span class="line">		go s.Handler(conn)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h2><h3 id="用户结构构建"><a href="#用户结构构建" class="headerlink" title="用户结构构建"></a>用户结构构建</h3><p>用户板块结构如下图所示<br>使用Map记录在线用户信息，用户上线后向服务器发出请求，服务器为每一个用户分配单独的channel传递消息<br><img src="/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/user.png"><br>用户对象及方法定义如下：</p>
+<h2 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h2><h3 id="用户结构构建"><a href="#用户结构构建" class="headerlink" title="用户结构构建"></a>用户结构构建</h3><p>用户板块结构如下图所示<br>使用Map记录在线用户信息，用户上线后向服务器发出请求，服务器为每一个用户分配单独的channel传递消息<br><img src="/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/user.png"><br>用户对象及方法定义如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type User struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">	Addr string</span><br><span class="line">	C    chan string  </span><br><span class="line">	conn net.Conn //用户属于哪一个连接</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewUser(conn net.Conn) *User &#123;</span><br><span class="line">	userAddr := conn.RemoteAddr().String()</span><br><span class="line"></span><br><span class="line">	user := &amp;User&#123;</span><br><span class="line">		Name: userAddr,</span><br><span class="line">		Addr: userAddr,</span><br><span class="line">		C:    make(chan string),</span><br><span class="line">		conn: conn,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//启动监听当前user channel消息的goroutine</span><br><span class="line">	go user.ListenMessage()</span><br><span class="line"></span><br><span class="line">	return user</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>服务器端需要增添存储用户数据的数据结构及处理用户业务的方法</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type Server struct &#123;</span><br><span class="line">	Ip   string</span><br><span class="line">	Port int</span><br><span class="line"></span><br><span class="line">	//在线用户列表</span><br><span class="line">	OnlineMap map[string]*User</span><br><span class="line">	mapLock   sync.RWMutex</span><br><span class="line"></span><br><span class="line">	//消息广播的channel</span><br><span class="line">	Message chan string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Server) Handler(conn net.Conn) &#123;&#125;</span><br><span class="line">//广播消息的方法</span><br><span class="line">func (s *Server) BroadCast(user *User, msg string) &#123;</span><br><span class="line">	sendMsg := &quot;[&quot; + user.Addr + &quot;]&quot; + user.Name + &quot;:&quot; + msg</span><br><span class="line">	s.Message &lt;- sendMsg</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 监听Message广播消息channel的goroutine,一旦有消息就发送给全部的在线User</span><br><span class="line">func (s *Server) ListenMessager() &#123;</span><br><span class="line">	for &#123;</span><br><span class="line">		msg := &lt;-s.Message</span><br><span class="line"></span><br><span class="line">		//将msg发送给全部的在线User</span><br><span class="line">		s.mapLock.Lock()</span><br><span class="line">		for _, cli := range s.OnlineMap &#123;</span><br><span class="line">			cli.C &lt;- msg</span><br><span class="line">		&#125;</span><br><span class="line">		s.mapLock.Unlock()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -64,7 +64,7 @@
   <entry>
     <title>《Go语言编程》笔记之音乐盒demo</title>
     <url>/2023/01/01/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0%E4%B9%8B%E9%9F%B3%E4%B9%90%E7%9B%92demo/</url>
-    <content><![CDATA[<p><img src="/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0%E4%B9%8B%E9%9F%B3%E4%B9%90%E7%9B%92demo/test.jpeg"></p>
+    <content><![CDATA[<p><img src="/2023/01/01/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0%E4%B9%8B%E9%9F%B3%E4%B9%90%E7%9B%92demo/test.jpeg"></p>
 ]]></content>
   </entry>
 </search>
