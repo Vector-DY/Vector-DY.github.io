@@ -28,9 +28,10 @@
 <meta property="og:description" content="前言无论在深搜还是宽搜当中，我们都需要对所有的情况进行暴力枚举，要降低我们在深度优先搜索时的时间开销，剪枝优化至关重要。在具体的题目中，我们可以考虑的剪枝方法主要有以下五个方向：1.优化搜索顺序：不同的搜索顺序会产生不同的搜索树规模，在大部分情况下，应当优先搜索分支较少的节点。2.排除等效冗余：有些结果是数据的组合而无需考虑组内顺序，这时我们需要控制不去搜索重复状态，排除冗余。3.可行性剪枝：在搜">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-02T13:13:52.000Z">
-<meta property="article:modified_time" content="2023-01-03T07:46:47.242Z">
+<meta property="article:modified_time" content="2023-01-03T07:59:13.514Z">
 <meta property="article:author" content="Ding Yang">
 <meta property="article:tag" content="dfs">
+<meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://dyang.com.cn/2023/01/02/DFS%E5%89%AA%E6%9E%9D%E4%B8%8E%E4%BC%98%E5%8C%96/">
@@ -232,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-03 15:46:47" itemprop="dateModified" datetime="2023-01-03T15:46:47+08:00">2023-01-03</time>
+                <time title="Modified: 2023-01-03 15:59:13" itemprop="dateModified" datetime="2023-01-03T15:59:13+08:00">2023-01-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -325,6 +326,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/dfs/" rel="tag"># dfs</a>
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
           </div>
 
         
@@ -336,7 +338,10 @@
     <a href="/2023/01/01/%E3%80%8AGo%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B%E3%80%8B%E7%AC%94%E8%AE%B0%E4%B9%8B%E9%9F%B3%E4%B9%90%E7%9B%92demo/" rel="prev" title="《Go语言编程》笔记之音乐盒demo">
       <i class="fa fa-chevron-left"></i> 《Go语言编程》笔记之音乐盒demo
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="next" title="MIT6.828课程之环境搭建">
+      MIT6.828课程之环境搭建 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -412,20 +417,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dyang.com.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言6.828：Operating System Engineering操作系统课程实验环境配置教程课程地址：https:&#x2F;&#x2F;pdos.csail.mit.edu&#x2F;6.828&#x2F;2018&#x2F;schedule.html按照labs-&gt;tools中教程进行配置即可，不过用到的很多文件及依赖已经被淘汰了，可能会有一些报错，可参考本文中的解决方法。实验环境选用VMware即可，博主用的腾讯云轻量应用服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT6.828课程之环境搭建">
+<meta property="og:url" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="丁丁的博客">
+<meta property="og:description" content="前言6.828：Operating System Engineering操作系统课程实验环境配置教程课程地址：https:&#x2F;&#x2F;pdos.csail.mit.edu&#x2F;6.828&#x2F;2018&#x2F;schedule.html按照labs-&gt;tools中教程进行配置即可，不过用到的很多文件及依赖已经被淘汰了，可能会有一些报错，可参考本文中的解决方法。实验环境选用VMware即可，博主用的腾讯云轻量应用服务">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/1.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/3.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/4.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/5.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/6.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/7.png">
+<meta property="og:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/8.png">
+<meta property="article:published_time" content="2023-01-03T07:56:17.000Z">
+<meta property="article:modified_time" content="2023-01-03T13:30:09.668Z">
+<meta property="article:author" content="Ding Yang">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="MIT6.828">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/1.png">
+
+<link rel="canonical" href="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>MIT6.828课程之环境搭建 | 丁丁的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="丁丁的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">丁丁的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/Vector-DY" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpeg">
+      <meta itemprop="name" content="Ding Yang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁丁的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MIT6.828课程之环境搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-01-03 15:56:17 / Modified: 21:30:09" itemprop="dateCreated datePublished" datetime="2023-01-03T15:56:17+08:00">2023-01-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MIT6-828/" itemprop="url" rel="index"><span itemprop="name">MIT6.828</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-meta-item leancloud_visitors" data-flag-title="MIT6.828课程之环境搭建" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>6.828：Operating System Engineering</strong><br>操作系统课程实验环境配置教程<br>课程地址：<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2018/schedule.html">https://pdos.csail.mit.edu/6.828/2018/schedule.html</a><br>按照labs-&gt;tools中教程进行配置即可，不过用到的很多文件及依赖已经被淘汰了，可能会有一些报错，可参考本文中的解决方法。<br>实验环境选用VMware即可，博主用的腾讯云轻量应用服务器<br>操作系统：Ubuntu Server 20.04 LTS 64bit <span id="more"></span> </p>
+<h2 id="Compiler-Toolchain"><a href="#Compiler-Toolchain" class="headerlink" title="Compiler Toolchain"></a>Compiler Toolchain</h2><h3 id="Test-Toolchain"><a href="#Test-Toolchain" class="headerlink" title="Test Toolchain"></a>Test Toolchain</h3><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> objdump -i    <span class="comment">//  second line says elf32-i386</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/1.png">  </p>
+<p>测试gcc</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -m32 -<span class="built_in">print</span>-libgcc-<span class="keyword">file</span>-<span class="keyword">name</span> 	</span><br></pre></td></tr></table></figure>
+<p>成功则显示<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2.png"></p>
+<p>腾讯云搭载了部分基础的应用及依赖，虚拟机新系统可能没有，可运行以下指令安装。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt-<span class="built_in">get</span> install -y build-essential gdb git vim</span><br><span class="line"><span class="variable">$sudo</span> apt-<span class="built_in">get</span> install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h3 id="Build-Toolchain"><a href="#Build-Toolchain" class="headerlink" title="Build Toolchain"></a>Build Toolchain</h3><h4 id="Download-Package"><a href="#Download-Package" class="headerlink" title="Download Package"></a>Download Package</h4><p>官方网站的gmp下载链接可能无法访问，按以下链接下载即可。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mirrors.sjtug.sjtu.edu.cn/gnu/gmp/gmp-5.0.2.tar.bz2">https://mirrors.sjtug.sjtu.edu.cn/gnu/gmp/gmp-5.0.2.tar.bz2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mpfr.org/mpfr-3.1.2/mpfr-3.1.2.tar.bz2">https://www.mpfr.org/mpfr-3.1.2/mpfr-3.1.2.tar.bz2</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.multiprecision.org/downloads/mpc-0.9.tar.gz">http://www.multiprecision.org/downloads/mpc-0.9.tar.gz</a></li>
+<li><a target="_blank" rel="noopener" href="http://ftpmirror.gnu.org/binutils/binutils-2.21.1.tar.bz2">http://ftpmirror.gnu.org/binutils/binutils-2.21.1.tar.bz2</a></li>
+<li><a target="_blank" rel="noopener" href="http://ftpmirror.gnu.org/gcc/gcc-4.6.4/gcc-core-4.6.4.tar.bz2">http://ftpmirror.gnu.org/gcc/gcc-4.6.4/gcc-core-4.6.4.tar.bz2</a></li>
+<li><a target="_blank" rel="noopener" href="http://ftpmirror.gnu.org/gdb/gdb-7.3.1.tar.bz2">http://ftpmirror.gnu.org/gdb/gdb-7.3.1.tar.bz2</a></li>
+</ul>
+<p><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/3.png"></p>
+<h4 id="Unpack-and-Build"><a href="#Unpack-and-Build" class="headerlink" title="Unpack and Build"></a>Unpack and Build</h4><h5 id="Install-gmp-5-0-2"><a href="#Install-gmp-5-0-2" class="headerlink" title="Install gmp-5.0.2"></a>Install gmp-5.0.2</h5><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xjf gmp-5.0.2.tar.bz2</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> gmp-5.0.2</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install             </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<p>若第三条指令显示No usable m4 in $PATH or &#x2F;usr&#x2F;5bin是缺失库文件，执行以下指令再重新执行第三条指令。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$sudo</span> apt install m4</span></span><br></pre></td></tr></table></figure>
+<h5 id="Install-mpfr-3-1-2"><a href="#Install-mpfr-3-1-2" class="headerlink" title="Install mpfr-3.1.2"></a>Install mpfr-3.1.2</h5><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xjf mpfr-3.1.2.tar.bz2</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> mpfr-3.1.2</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install           </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<h5 id="Install-mpc-0-9"><a href="#Install-mpc-0-9" class="headerlink" title="Install mpc-0.9"></a>Install mpc-0.9</h5><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xzf mpc-0.9.tar.gz</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> mpc-0.9</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install            </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<h5 id="Install-binutils-2-21-1"><a href="#Install-binutils-2-21-1" class="headerlink" title="Install binutils-2.21.1"></a>Install binutils-2.21.1</h5><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xjf binutils-2.21.1.tar.bz2</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> binutils-2.21.1</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local --target=i386-jos-elf --disable-werror</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install             </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<p>测试结果</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$i386</span>-jos-elf-objdump -i</span></span><br></pre></td></tr></table></figure>
+<p>安装成功则输出以下信息<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/4.png"></p>
+<h5 id="Install-gcc-core-4-6-4"><a href="#Install-gcc-core-4-6-4" class="headerlink" title="Install gcc-core-4.6.4"></a>Install gcc-core-4.6.4</h5><p>gcc需要单独的目录否则编译不成功</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$tar</span> xjf gcc-core-<span class="number">4.6</span>.<span class="number">4</span><span class="selector-class">.tar</span><span class="selector-class">.bz2</span></span><br><span class="line"><span class="variable">$cd</span> gcc-<span class="number">4.6</span>.<span class="number">4</span></span><br><span class="line"><span class="variable">$mkdir</span> build           </span><br><span class="line"><span class="variable">$cd</span> build</span><br><span class="line">$../configure <span class="attr">--prefix</span>=/usr/local \</span><br><span class="line">    <span class="attr">--target</span>=i386-jos-elf <span class="attr">--disable-werror</span> \</span><br><span class="line">    <span class="attr">--disable-libssp</span> <span class="attr">--disable-libmudflap</span> <span class="attr">--with-newlib</span> \</span><br><span class="line">    <span class="attr">--without-headers</span> <span class="attr">--enable-languages</span>=c MAKEINFO=missing</span><br><span class="line"><span class="variable">$make</span> <span class="attribute">all</span>-gcc</span><br><span class="line"><span class="variable">$sudo</span> make install-gcc         </span><br><span class="line"><span class="variable">$make</span> <span class="attribute">all</span>-target-libgcc		</span><br><span class="line"><span class="variable">$sudo</span> make install-target-libgcc   </span><br><span class="line"><span class="variable">$cd</span> ../..</span><br></pre></td></tr></table></figure>
+<p>若第八条指令报错configure-target-libgcc<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/5.png"><br>则执行以下命令后重新执行第八条指令</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$export</span> <span class="title class_">LD_LIBRARY_PATH</span>=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/usr/local/lib</span> </span><br></pre></td></tr></table></figure>
+<p>测试安装结果</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$i386</span>-jos-elf-gcc -v</span></span><br></pre></td></tr></table></figure>
+<p>成功后输出以下信息<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/6.png">  </p>
+<h5 id="Install-gdb-7-3-1"><a href="#Install-gdb-7-3-1" class="headerlink" title="Install gdb-7.3.1"></a>Install gdb-7.3.1</h5><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$tar</span> xjf gdb-<span class="number">7.3</span>.<span class="number">1</span><span class="selector-class">.tar</span><span class="selector-class">.bz2</span></span><br><span class="line"><span class="variable">$cd</span> gdb-<span class="number">7.3</span>.<span class="number">1</span></span><br><span class="line">$./configure <span class="attr">--prefix</span>=/usr/local <span class="attr">--target</span>=i386-jos-elf <span class="attr">--program-prefix</span>=i386-jos-elf- \</span><br><span class="line">    <span class="attr">--disable-werror</span></span><br><span class="line"><span class="variable">$make</span> <span class="attribute">all</span>			 </span><br><span class="line"><span class="variable">$sudo</span> make install         </span><br><span class="line"><span class="variable">$cd</span> ..</span><br></pre></td></tr></table></figure>
+<p>若第四条指令报错no termcap library found，缺少库文件，执行以下指令安装termcap后重新执行。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$wget</span> http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz</span></span><br><span class="line"><span class="meta"><span class="keyword">$tar</span> -zxv -f termcap-1.3.1.tar.gz</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> termcap-1.3.1</span></span><br><span class="line"><span class="symbol">$</span> ./configure </span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install</span></span><br></pre></td></tr></table></figure>
+<h2 id="QEMU"><a href="#QEMU" class="headerlink" title="QEMU"></a>QEMU</h2><p>QEMU是一种现代且快速的 PC 模拟器，828课程要求该课程定制的QEMU版本。<br>直接用官方教程中的指令可能会报错，可以尝试更换python版本。</p>
+<h3 id="Install-Tools"><a href="#Install-Tools" class="headerlink" title="Install Tools"></a>Install Tools</h3><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$sudo</span> apt install libsdl1.2-dev libtool-bin libglib2.0-dev  libz-dev  libpixman-1-dev</span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> apt install python2</span></span><br></pre></td></tr></table></figure>
+<p>若执行第一条指令后发现apt,git等指令无法正常使用，报错undefined symbol: __gmpz_limbs_write，则执行以下指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">cd</span> /usr/local/lib</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">sudo <span class="built_in">rm</span> libgmp*</span></span><br></pre></td></tr></table></figure>
+<h3 id="Install-QEMU"><a href="#Install-QEMU" class="headerlink" title="Install QEMU"></a>Install QEMU</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/mit-pdos/</span><span class="number">6.828</span>-qemu.git qemu</span><br><span class="line">$.<span class="regexp">/configure --disable-kvm --disable-werror --prefix=/u</span>sr/local  --target-list=<span class="string">&quot;i386-softmmu x86_64-softmmu&quot;</span> --python=python2</span><br><span class="line"><span class="variable">$make</span></span><br><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
+<p>遇到报错如下：<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/7.png"><br>解决方法：在 qga&#x2F;commands-posix.c文件中的 #include &lt;sys&#x2F;types.h&gt; 下面增加#include &lt;sys&#x2F;sysmacros.h&gt;</p>
+<h3 id="Test-QEMU"><a href="#Test-QEMU" class="headerlink" title="Test QEMU"></a>Test QEMU</h3><p>下载实验源码进行测试</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> clone https:<span class="regexp">//</span>pdos.csail.mit.edu<span class="regexp">/6.828/</span><span class="number">2018</span>/jos.git lab</span><br><span class="line"><span class="variable">$cd</span> lab</span><br><span class="line"><span class="variable">$make</span></span><br><span class="line"><span class="variable">$make</span> qemu-nox</span><br></pre></td></tr></table></figure>
+<p>测试成功界面<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/8.png"></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Ding Yang WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Ding Yang Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/bitcoin.png" alt="Ding Yang Bitcoin">
+        <p>Bitcoin</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OS/" rel="tag"># OS</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+              <a href="/tags/MIT6-828/" rel="tag"># MIT6.828</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/02/DFS%E5%89%AA%E6%9E%9D%E4%B8%8E%E4%BC%98%E5%8C%96/" rel="prev" title="DFS剪枝与优化">
+      <i class="fa fa-chevron-left"></i> DFS剪枝与优化
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler-Toolchain"><span class="nav-number">2.</span> <span class="nav-text">Compiler Toolchain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-Toolchain"><span class="nav-number">2.1.</span> <span class="nav-text">Test Toolchain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Toolchain"><span class="nav-number">2.2.</span> <span class="nav-text">Build Toolchain</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-Package"><span class="nav-number">2.2.1.</span> <span class="nav-text">Download Package</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unpack-and-Build"><span class="nav-number">2.2.2.</span> <span class="nav-text">Unpack and Build</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-gmp-5-0-2"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">Install gmp-5.0.2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-mpfr-3-1-2"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">Install mpfr-3.1.2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-mpc-0-9"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">Install mpc-0.9</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-binutils-2-21-1"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">Install binutils-2.21.1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-gcc-core-4-6-4"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">Install gcc-core-4.6.4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-gdb-7-3-1"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">Install gdb-7.3.1</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QEMU"><span class="nav-number">3.</span> <span class="nav-text">QEMU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Tools"><span class="nav-number">3.1.</span> <span class="nav-text">Install Tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-QEMU"><span class="nav-number">3.2.</span> <span class="nav-text">Install QEMU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-QEMU"><span class="nav-number">3.3.</span> <span class="nav-text">Test QEMU</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ding Yang"
+      src="/images/head.jpeg">
+  <p class="site-author-name" itemprop="name">Ding Yang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Vector-DY" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Vector-DY" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:dyang0583@gmail.com" title="E-Mail → mailto:dyang0583@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dingyang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"qxlosHZPk8ey9Bxej9GchggC-gzGzoHsz","app_key":"kZ5VtrhN8grINwahcOZDmUW3","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'qxlosHZPk8ey9Bxej9GchggC-gzGzoHsz',
+      appKey     : 'kZ5VtrhN8grINwahcOZDmUW3',
+      placeholder: "谈，都可以谈，没什么不能谈的",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

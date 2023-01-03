@@ -32,7 +32,8 @@
         <category>golang</category>
       </categories>
       <tags>
-        <tag>golang instant-messaging</tag>
+        <tag>golang</tag>
+        <tag>instant-messaging</tag>
       </tags>
   </entry>
   <entry>
@@ -113,6 +114,67 @@
       </categories>
       <tags>
         <tag>dfs</tag>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIT6.828课程之环境搭建</title>
+    <url>/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>6.828：Operating System Engineering</strong><br>操作系统课程实验环境配置教程<br>课程地址：<a href="https://pdos.csail.mit.edu/6.828/2018/schedule.html">https://pdos.csail.mit.edu/6.828/2018/schedule.html</a><br>按照labs-&gt;tools中教程进行配置即可，不过用到的很多文件及依赖已经被淘汰了，可能会有一些报错，可参考本文中的解决方法。<br>实验环境选用VMware即可，博主用的腾讯云轻量应用服务器<br>操作系统：Ubuntu Server 20.04 LTS 64bit <span id="more"></span> </p>
+<h2 id="Compiler-Toolchain"><a href="#Compiler-Toolchain" class="headerlink" title="Compiler Toolchain"></a>Compiler Toolchain</h2><h3 id="Test-Toolchain"><a href="#Test-Toolchain" class="headerlink" title="Test Toolchain"></a>Test Toolchain</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> objdump -i    <span class="comment">//  second line says elf32-i386</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/1.png">  </p>
+<p>测试gcc</p>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">$ gcc -m32 -<span class="built_in">print</span>-libgcc-<span class="keyword">file</span>-<span class="keyword">name</span> 	</span><br></pre></td></tr></table></figure>
+<p>成功则显示<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/2.png"></p>
+<p>腾讯云搭载了部分基础的应用及依赖，虚拟机新系统可能没有，可运行以下指令安装。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt-<span class="built_in">get</span> install -y build-essential gdb git vim</span><br><span class="line"><span class="variable">$sudo</span> apt-<span class="built_in">get</span> install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h3 id="Build-Toolchain"><a href="#Build-Toolchain" class="headerlink" title="Build Toolchain"></a>Build Toolchain</h3><h4 id="Download-Package"><a href="#Download-Package" class="headerlink" title="Download Package"></a>Download Package</h4><p>官方网站的gmp下载链接可能无法访问，按以下链接下载即可。</p>
+<ul>
+<li><a href="https://mirrors.sjtug.sjtu.edu.cn/gnu/gmp/gmp-5.0.2.tar.bz2">https://mirrors.sjtug.sjtu.edu.cn/gnu/gmp/gmp-5.0.2.tar.bz2</a></li>
+<li><a href="https://www.mpfr.org/mpfr-3.1.2/mpfr-3.1.2.tar.bz2">https://www.mpfr.org/mpfr-3.1.2/mpfr-3.1.2.tar.bz2</a></li>
+<li><a href="http://www.multiprecision.org/downloads/mpc-0.9.tar.gz">http://www.multiprecision.org/downloads/mpc-0.9.tar.gz</a></li>
+<li><a href="http://ftpmirror.gnu.org/binutils/binutils-2.21.1.tar.bz2">http://ftpmirror.gnu.org/binutils/binutils-2.21.1.tar.bz2</a></li>
+<li><a href="http://ftpmirror.gnu.org/gcc/gcc-4.6.4/gcc-core-4.6.4.tar.bz2">http://ftpmirror.gnu.org/gcc/gcc-4.6.4/gcc-core-4.6.4.tar.bz2</a></li>
+<li><a href="http://ftpmirror.gnu.org/gdb/gdb-7.3.1.tar.bz2">http://ftpmirror.gnu.org/gdb/gdb-7.3.1.tar.bz2</a></li>
+</ul>
+<p><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/3.png"></p>
+<h4 id="Unpack-and-Build"><a href="#Unpack-and-Build" class="headerlink" title="Unpack and Build"></a>Unpack and Build</h4><h5 id="Install-gmp-5-0-2"><a href="#Install-gmp-5-0-2" class="headerlink" title="Install gmp-5.0.2"></a>Install gmp-5.0.2</h5><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xjf gmp-5.0.2.tar.bz2</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> gmp-5.0.2</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install             </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<p>若第三条指令显示No usable m4 in $PATH or &#x2F;usr&#x2F;5bin是缺失库文件，执行以下指令再重新执行第三条指令。</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$sudo</span> apt install m4</span></span><br></pre></td></tr></table></figure>
+<h5 id="Install-mpfr-3-1-2"><a href="#Install-mpfr-3-1-2" class="headerlink" title="Install mpfr-3.1.2"></a>Install mpfr-3.1.2</h5><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xjf mpfr-3.1.2.tar.bz2</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> mpfr-3.1.2</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install           </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<h5 id="Install-mpc-0-9"><a href="#Install-mpc-0-9" class="headerlink" title="Install mpc-0.9"></a>Install mpc-0.9</h5><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xzf mpc-0.9.tar.gz</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> mpc-0.9</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install            </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<h5 id="Install-binutils-2-21-1"><a href="#Install-binutils-2-21-1" class="headerlink" title="Install binutils-2.21.1"></a>Install binutils-2.21.1</h5><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$tar</span> xjf binutils-2.21.1.tar.bz2</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> binutils-2.21.1</span></span><br><span class="line"><span class="symbol">$</span>./configure --prefix=/usr/local --target=i386-jos-elf --disable-werror</span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install             </span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> ..</span></span><br></pre></td></tr></table></figure>
+<p>测试结果</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$i386</span>-jos-elf-objdump -i</span></span><br></pre></td></tr></table></figure>
+<p>安装成功则输出以下信息<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/4.png"></p>
+<h5 id="Install-gcc-core-4-6-4"><a href="#Install-gcc-core-4-6-4" class="headerlink" title="Install gcc-core-4.6.4"></a>Install gcc-core-4.6.4</h5><p>gcc需要单独的目录否则编译不成功</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="variable">$tar</span> xjf gcc-core-<span class="number">4.6</span>.<span class="number">4</span><span class="selector-class">.tar</span><span class="selector-class">.bz2</span></span><br><span class="line"><span class="variable">$cd</span> gcc-<span class="number">4.6</span>.<span class="number">4</span></span><br><span class="line"><span class="variable">$mkdir</span> build           </span><br><span class="line"><span class="variable">$cd</span> build</span><br><span class="line">$../configure <span class="attr">--prefix</span>=/usr/local \</span><br><span class="line">    <span class="attr">--target</span>=i386-jos-elf <span class="attr">--disable-werror</span> \</span><br><span class="line">    <span class="attr">--disable-libssp</span> <span class="attr">--disable-libmudflap</span> <span class="attr">--with-newlib</span> \</span><br><span class="line">    <span class="attr">--without-headers</span> <span class="attr">--enable-languages</span>=c MAKEINFO=missing</span><br><span class="line"><span class="variable">$make</span> <span class="attribute">all</span>-gcc</span><br><span class="line"><span class="variable">$sudo</span> make install-gcc         </span><br><span class="line"><span class="variable">$make</span> <span class="attribute">all</span>-target-libgcc		</span><br><span class="line"><span class="variable">$sudo</span> make install-target-libgcc   </span><br><span class="line"><span class="variable">$cd</span> ../..</span><br></pre></td></tr></table></figure>
+<p>若第八条指令报错configure-target-libgcc<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/5.png"><br>则执行以下命令后重新执行第八条指令</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$export</span> <span class="title class_">LD_LIBRARY_PATH</span>=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/usr/local/lib</span> </span><br></pre></td></tr></table></figure>
+<p>测试安装结果</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$i386</span>-jos-elf-gcc -v</span></span><br></pre></td></tr></table></figure>
+<p>成功后输出以下信息<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/6.png">  </p>
+<h5 id="Install-gdb-7-3-1"><a href="#Install-gdb-7-3-1" class="headerlink" title="Install gdb-7.3.1"></a>Install gdb-7.3.1</h5><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="variable">$tar</span> xjf gdb-<span class="number">7.3</span>.<span class="number">1</span><span class="selector-class">.tar</span><span class="selector-class">.bz2</span></span><br><span class="line"><span class="variable">$cd</span> gdb-<span class="number">7.3</span>.<span class="number">1</span></span><br><span class="line">$./configure <span class="attr">--prefix</span>=/usr/local <span class="attr">--target</span>=i386-jos-elf <span class="attr">--program-prefix</span>=i386-jos-elf- \</span><br><span class="line">    <span class="attr">--disable-werror</span></span><br><span class="line"><span class="variable">$make</span> <span class="attribute">all</span>			 </span><br><span class="line"><span class="variable">$sudo</span> make install         </span><br><span class="line"><span class="variable">$cd</span> ..</span><br></pre></td></tr></table></figure>
+<p>若第四条指令报错no termcap library found，缺少库文件，执行以下指令安装termcap后重新执行。</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$wget</span> http://ftp.gnu.org/gnu/termcap/termcap-1.3.1.tar.gz</span></span><br><span class="line"><span class="meta"><span class="keyword">$tar</span> -zxv -f termcap-1.3.1.tar.gz</span></span><br><span class="line"><span class="meta"><span class="keyword">$cd</span> termcap-1.3.1</span></span><br><span class="line"><span class="symbol">$</span> ./configure </span><br><span class="line"><span class="meta"><span class="keyword">$make</span></span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> make install</span></span><br></pre></td></tr></table></figure>
+<h2 id="QEMU"><a href="#QEMU" class="headerlink" title="QEMU"></a>QEMU</h2><p>QEMU是一种现代且快速的 PC 模拟器，828课程要求该课程定制的QEMU版本。<br>直接用官方教程中的指令可能会报错，可以尝试更换python版本。</p>
+<h3 id="Install-Tools"><a href="#Install-Tools" class="headerlink" title="Install Tools"></a>Install Tools</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">$sudo</span> apt install libsdl1.2-dev libtool-bin libglib2.0-dev  libz-dev  libpixman-1-dev</span></span><br><span class="line"><span class="meta"><span class="keyword">$sudo</span> apt install python2</span></span><br></pre></td></tr></table></figure>
+<p>若执行第一条指令后发现apt,git等指令无法正常使用，报错undefined symbol: __gmpz_limbs_write，则执行以下指令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">cd</span> /usr/local/lib</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">sudo <span class="built_in">rm</span> libgmp*</span></span><br></pre></td></tr></table></figure>
+<h3 id="Install-QEMU"><a href="#Install-QEMU" class="headerlink" title="Install QEMU"></a>Install QEMU</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="variable">$git</span> clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/mit-pdos/</span><span class="number">6.828</span>-qemu.git qemu</span><br><span class="line">$.<span class="regexp">/configure --disable-kvm --disable-werror --prefix=/u</span>sr/local  --target-list=<span class="string">&quot;i386-softmmu x86_64-softmmu&quot;</span> --python=python2</span><br><span class="line"><span class="variable">$make</span></span><br><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
+<p>遇到报错如下：<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/7.png"><br>解决方法：在 qga&#x2F;commands-posix.c文件中的 #include &lt;sys&#x2F;types.h&gt; 下面增加#include &lt;sys&#x2F;sysmacros.h&gt;</p>
+<h3 id="Test-QEMU"><a href="#Test-QEMU" class="headerlink" title="Test QEMU"></a>Test QEMU</h3><p>下载实验源码进行测试</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="variable">$git</span> clone https:<span class="regexp">//</span>pdos.csail.mit.edu<span class="regexp">/6.828/</span><span class="number">2018</span>/jos.git lab</span><br><span class="line"><span class="variable">$cd</span> lab</span><br><span class="line"><span class="variable">$make</span></span><br><span class="line"><span class="variable">$make</span> qemu-nox</span><br></pre></td></tr></table></figure>
+<p>测试成功界面<br><img src="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/8.png"></p>
+]]></content>
+      <categories>
+        <category>MIT6.828</category>
+      </categories>
+      <tags>
+        <tag>OS</tag>
+        <tag>操作系统</tag>
+        <tag>MIT6.828</tag>
       </tags>
   </entry>
 </search>
