@@ -196,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/03/13/Effective-Modern-C-%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpeg">
@@ -210,7 +210,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/03/13/Effective-Modern-C-%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Effective Modern C++笔记</a>
+            <a href="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/" class="post-title-link" itemprop="url">判断点在多边形内部</a>
         </h2>
 
         <div class="post-meta">
@@ -219,22 +219,28 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-03-13 00:17:13 / Modified: 00:19:02" itemprop="dateCreated datePublished" datetime="2023-03-13T00:17:13+08:00">2023-03-13</time>
+              <time title="Created: 2023-07-21 23:40:13" itemprop="dateCreated datePublished" datetime="2023-07-21T23:40:13+08:00">2023-07-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-24 23:15:29" itemprop="dateModified" datetime="2023-07-24T23:15:29+08:00">2023-07-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                  <a href="/categories/algorithms/" itemprop="url" rel="index"><span itemprop="name">algorithms</span></a>
                 </span>
             </span>
 
           
-            <span id="/2023/03/13/Effective-Modern-C-%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="Effective Modern C++笔记" title="Views">
+            <span id="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/" class="post-meta-item leancloud_visitors" data-flag-title="判断点在多边形内部" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -249,8 +255,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2023/03/13/Effective-Modern-C-%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/13/Effective-Modern-C-%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    <a title="valine" href="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -265,15 +271,195 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2>
+          <p>中望的内推人说笔试可能会出判断点在多边形内部。<br>如果从点P作水平向左的射线的话，假设P在多边形内部，那么这条射线与多边形的交点必为奇数，如果P在多边形外部，则交点个数必为偶数（0也在内）。<br>所以，我们可以遍历多边形的每条边，求出交点的总个数。<br>比较特殊的情况是如果射线正好穿过两条边之间,那么这个交点会被算作2次，处理办法是可以规定线段的两个端点中每个端点只属于其中一条线。  </p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/03/13/Effective-Modern-C-%E7%AC%94%E8%AE%B0/#more" rel="contents">
+              <a class="btn" href="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpeg">
+      <meta itemprop="name" content="Ding Yang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁丁的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">nvim安装及配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-10 12:25:29" itemprop="dateCreated datePublished" datetime="2023-07-10T12:25:29+08:00">2023-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-11 14:40:43" itemprop="dateModified" datetime="2023-07-11T14:40:43+08:00">2023-07-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nvim/" itemprop="url" rel="index"><span itemprop="name">nvim</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-meta-item leancloud_visitors" data-flag-title="nvim安装及配置" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>到neovim的wiki界面找stable release通过tarball安装<br><a target="_blank" rel="noopener" href="https://github.com/neovim/neovim/releases/tag/stable">https://github.com/neovim/neovim/releases/tag/stable</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> tar xzvf nvim-linux64.tar.gz</span><br><span class="line"><span class="variable">$sudo</span> mv nvim-linux64 <span class="regexp">/usr/</span>local/nvim</span><br><span class="line"><span class="comment">#创建快捷方式 软链接</span></span><br><span class="line"><span class="variable">$sudo</span> ln -s <span class="regexp">/usr/</span>local<span class="regexp">/nvim/</span>bin<span class="regexp">/nvim /u</span>sr<span class="regexp">/bin/</span>nvim</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">mkdir</span> -p .config/nvim</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">touch</span> init.lua</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">mkdir</span> lua</span></span><br></pre></td></tr></table></figure>
+
+<p>首先配置packer</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wbthomason/packer.nvim">https://github.com/wbthomason/packer.nvim</a><br><a target="_blank" rel="noopener" href="https://github.com/folke/tokyonight.nvim">https://github.com/folke/tokyonight.nvim</a><br><a target="_blank" rel="noopener" href="https://github.com/nvim-lualine/lualine.nvim">https://github.com/nvim-lualine/lualine.nvim</a><br><a target="_blank" rel="noopener" href="https://github.com/nvim-tree/nvim-tree.lua">https://github.com/nvim-tree/nvim-tree.lua</a></p>
+<p><img src="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/1.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/03/16/mem%E7%B1%BB%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpeg">
+      <meta itemprop="name" content="Ding Yang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁丁的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/16/mem%E7%B1%BB%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F/" class="post-title-link" itemprop="url">mem类函数模拟</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-03-16 20:28:12" itemprop="dateCreated datePublished" datetime="2023-03-16T20:28:12+08:00">2023-03-16</time>
+            </span>
+
+          
+            <span id="/2023/03/16/mem%E7%B1%BB%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F/" class="post-meta-item leancloud_visitors" data-flag-title="mem类函数模拟" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/03/16/mem%E7%B1%BB%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/03/16/mem%E7%B1%BB%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
       
     </div>
 
@@ -425,7 +611,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-17 21:49:47" itemprop="dateModified" datetime="2023-01-17T21:49:47+08:00">2023-01-17</time>
+                <time title="Modified: 2023-07-17 22:26:24" itemprop="dateModified" datetime="2023-07-17T22:26:24+08:00">2023-07-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -469,16 +655,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>lab1主要分为三个部分，第一部分热身运动，便于熟悉汇编、QEMU及PC的开机引导，第二部分检查内核的boot loader程序，第三部分研究内核的初始模板即JOS。<br>实验地址：<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2018/labs/lab1/">https://pdos.csail.mit.edu/6.828/2018/labs/lab1/</a></p>
-<h2 id="起始配置"><a href="#起始配置" class="headerlink" title="起始配置"></a>起始配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> ~/6.828</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ~/6.828</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">add git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://pdos.csail.mit.edu/6.828/2018/jos.git lab</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>篇幅有限，目前只记录代码，有空再写解析</p>
+<h4 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replace this with your code.</span></span><br><span class="line">num = getuint(&amp;ap, lflag);</span><br><span class="line"><span class="keyword">base</span> = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">goto</span> number;</span><br></pre></td></tr></table></figure>
+<h4 id="backtrace-function"><a href="#backtrace-function" class="headerlink" title="backtrace function"></a>backtrace function</h4><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">mon_backtrace(<span class="keyword">int</span> argc, char **argv, struct Trapframe *tf)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="regexp">//</span> Your code here.</span><br><span class="line">	uint32_t ebp, eip, *p;</span><br><span class="line">    struct Eipdebuginfo info;</span><br><span class="line"></span><br><span class="line">    ebp = read_ebp();</span><br><span class="line">    <span class="keyword">while</span> (ebp != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p = (uint32_t *) ebp;</span><br><span class="line">        eip = p[<span class="number">1</span>];</span><br><span class="line">        cprintf(<span class="string">&quot;ebp %x eip %x args %08x %08x %08x %08x %08x\n&quot;</span>, ebp, eip, p[<span class="number">2</span>], p[<span class="number">3</span>], p[<span class="number">4</span>], p[<span class="number">5</span>], p[<span class="number">6</span>]);</span><br><span class="line">        <span class="keyword">if</span> (debuginfo_eip(eip, &amp;info) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> fn_offset = eip - info.eip_fn_addr;</span><br><span class="line"></span><br><span class="line">            cprintf(<span class="string">&quot;%s:%d: %.*s+%d\n&quot;</span>, info.eip_file, info.eip_line, info.eip_fn_namelen, info.eip_fn_name, fn_offset);</span><br><span class="line">        &#125;</span><br><span class="line">        ebp = p[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="display-function"><a href="#display-function" class="headerlink" title="display function"></a>display function</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Your code here.</span></span><br><span class="line">stab<span class="constructor">_binsearch(<span class="params">stabs</span>, &amp;<span class="params">lline</span>, &amp;<span class="params">rline</span>, N_SLINE, <span class="params">addr</span>)</span>;</span><br><span class="line">  <span class="keyword">if</span> (lline &lt;= rline) &#123;</span><br><span class="line">      info-&gt;eip_line = stabs<span class="literal">[<span class="identifier">lline</span>]</span>.n_desc;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">      cprintf(<span class="string">&quot;line not find\n&quot;</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -981,189 +1161,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2022/12/31/newpapaername/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpeg">
-      <meta itemprop="name" content="Ding Yang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="丁丁的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/31/newpapaername/" class="post-title-link" itemprop="url">newpapaername</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-12-31 15:16:28" itemprop="dateCreated datePublished" datetime="2022-12-31T15:16:28+08:00">2022-12-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-01 00:00:02" itemprop="dateModified" datetime="2023-01-01T00:00:02+08:00">2023-01-01</time>
-              </span>
-
-          
-            <span id="/2022/12/31/newpapaername/" class="post-meta-item leancloud_visitors" data-flag-title="newpapaername" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2022/12/31/newpapaername/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/31/newpapaername/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="test-hexo"><a href="#test-hexo" class="headerlink" title="test hexo"></a>test hexo</h1><pre><code>fum main()&#123;
-    print(&quot;hello hexo&quot;)
-&#125;
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2022/12/31/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpeg">
-      <meta itemprop="name" content="Ding Yang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="丁丁的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/31/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-12-31 00:41:16 / Modified: 23:59:56" itemprop="dateCreated datePublished" datetime="2022-12-31T00:41:16+08:00">2022-12-31</time>
-            </span>
-
-          
-            <span id="/2022/12/31/hello-world/" class="post-meta-item leancloud_visitors" data-flag-title="Hello World" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2022/12/31/hello-world/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/31/hello-world/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1230,14 +1232,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

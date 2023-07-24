@@ -20,22 +20,20 @@
     var CONFIG = {"hostname":"dyang.com.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="篇幅有限，目前只记录代码，有空再写解析 printf1234&#x2F;&#x2F; Replace this with your code.num &#x3D; getuint(&amp;ap, lflag);base &#x3D; 8;goto number; backtrace function123456789101112131415161718192021222324intmon_backtrace(int argc, cha">
+  <meta name="description" content="中望的内推人说笔试可能会出判断点在多边形内部。如果从点P作水平向左的射线的话，假设P在多边形内部，那么这条射线与多边形的交点必为奇数，如果P在多边形外部，则交点个数必为偶数（0也在内）。所以，我们可以遍历多边形的每条边，求出交点的总个数。比较特殊的情况是如果射线正好穿过两条边之间,那么这个交点会被算作2次，处理办法是可以规定线段的两个端点中每个端点只属于其中一条线。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MIT6.828课程之Lab1">
-<meta property="og:url" content="http://dyang.com.cn/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/index.html">
+<meta property="og:title" content="判断点在多边形内部">
+<meta property="og:url" content="http://dyang.com.cn/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/index.html">
 <meta property="og:site_name" content="丁丁的博客">
-<meta property="og:description" content="篇幅有限，目前只记录代码，有空再写解析 printf1234&#x2F;&#x2F; Replace this with your code.num &#x3D; getuint(&amp;ap, lflag);base &#x3D; 8;goto number; backtrace function123456789101112131415161718192021222324intmon_backtrace(int argc, cha">
+<meta property="og:description" content="中望的内推人说笔试可能会出判断点在多边形内部。如果从点P作水平向左的射线的话，假设P在多边形内部，那么这条射线与多边形的交点必为奇数，如果P在多边形外部，则交点个数必为偶数（0也在内）。所以，我们可以遍历多边形的每条边，求出交点的总个数。比较特殊的情况是如果射线正好穿过两条边之间,那么这个交点会被算作2次，处理办法是可以规定线段的两个端点中每个端点只属于其中一条线。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-01-10T13:57:20.000Z">
-<meta property="article:modified_time" content="2023-07-17T14:26:24.858Z">
+<meta property="article:published_time" content="2023-07-21T15:40:13.000Z">
+<meta property="article:modified_time" content="2023-07-24T15:15:29.269Z">
 <meta property="article:author" content="Ding Yang">
-<meta property="article:tag" content="OS">
-<meta property="article:tag" content="操作系统">
-<meta property="article:tag" content="MIT6.828">
+<meta property="article:tag" content="algorithms">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://dyang.com.cn/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/">
+<link rel="canonical" href="http://dyang.com.cn/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/">
 
 
 <script id="page-configurations">
@@ -48,7 +46,7 @@
   };
 </script>
 
-  <title>MIT6.828课程之Lab1 | 丁丁的博客</title>
+  <title>判断点在多边形内部 | 丁丁的博客</title>
   
 
 
@@ -204,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpeg">
@@ -217,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MIT6.828课程之Lab1
+          判断点在多边形内部
         </h1>
 
         <div class="post-meta">
@@ -227,14 +225,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-01-10 21:57:20" itemprop="dateCreated datePublished" datetime="2023-01-10T21:57:20+08:00">2023-01-10</time>
+              <time title="Created: 2023-07-21 23:40:13" itemprop="dateCreated datePublished" datetime="2023-07-21T23:40:13+08:00">2023-07-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-17 22:26:24" itemprop="dateModified" datetime="2023-07-17T22:26:24+08:00">2023-07-17</time>
+                <time title="Modified: 2023-07-24 23:15:29" itemprop="dateModified" datetime="2023-07-24T23:15:29+08:00">2023-07-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,12 +240,12 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MIT6-828/" itemprop="url" rel="index"><span itemprop="name">MIT6.828</span></a>
+                  <a href="/categories/algorithms/" itemprop="url" rel="index"><span itemprop="name">algorithms</span></a>
                 </span>
             </span>
 
           
-            <span id="/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/" class="post-meta-item leancloud_visitors" data-flag-title="MIT6.828课程之Lab1" title="Views">
+            <span id="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/" class="post-meta-item leancloud_visitors" data-flag-title="判断点在多边形内部" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -262,8 +260,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -278,10 +276,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>篇幅有限，目前只记录代码，有空再写解析</p>
-<h4 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replace this with your code.</span></span><br><span class="line">num = getuint(&amp;ap, lflag);</span><br><span class="line"><span class="keyword">base</span> = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">goto</span> number;</span><br></pre></td></tr></table></figure>
-<h4 id="backtrace-function"><a href="#backtrace-function" class="headerlink" title="backtrace function"></a>backtrace function</h4><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">mon_backtrace(<span class="keyword">int</span> argc, char **argv, struct Trapframe *tf)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="regexp">//</span> Your code here.</span><br><span class="line">	uint32_t ebp, eip, *p;</span><br><span class="line">    struct Eipdebuginfo info;</span><br><span class="line"></span><br><span class="line">    ebp = read_ebp();</span><br><span class="line">    <span class="keyword">while</span> (ebp != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p = (uint32_t *) ebp;</span><br><span class="line">        eip = p[<span class="number">1</span>];</span><br><span class="line">        cprintf(<span class="string">&quot;ebp %x eip %x args %08x %08x %08x %08x %08x\n&quot;</span>, ebp, eip, p[<span class="number">2</span>], p[<span class="number">3</span>], p[<span class="number">4</span>], p[<span class="number">5</span>], p[<span class="number">6</span>]);</span><br><span class="line">        <span class="keyword">if</span> (debuginfo_eip(eip, &amp;info) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> fn_offset = eip - info.eip_fn_addr;</span><br><span class="line"></span><br><span class="line">            cprintf(<span class="string">&quot;%s:%d: %.*s+%d\n&quot;</span>, info.eip_file, info.eip_line, info.eip_fn_namelen, info.eip_fn_name, fn_offset);</span><br><span class="line">        &#125;</span><br><span class="line">        ebp = p[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="display-function"><a href="#display-function" class="headerlink" title="display function"></a>display function</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Your code here.</span></span><br><span class="line">stab<span class="constructor">_binsearch(<span class="params">stabs</span>, &amp;<span class="params">lline</span>, &amp;<span class="params">rline</span>, N_SLINE, <span class="params">addr</span>)</span>;</span><br><span class="line">  <span class="keyword">if</span> (lline &lt;= rline) &#123;</span><br><span class="line">      info-&gt;eip_line = stabs<span class="literal">[<span class="identifier">lline</span>]</span>.n_desc;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">      cprintf(<span class="string">&quot;line not find\n&quot;</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+        <p>中望的内推人说笔试可能会出判断点在多边形内部。<br>如果从点P作水平向左的射线的话，假设P在多边形内部，那么这条射线与多边形的交点必为奇数，如果P在多边形外部，则交点个数必为偶数（0也在内）。<br>所以，我们可以遍历多边形的每条边，求出交点的总个数。<br>比较特殊的情况是如果射线正好穿过两条边之间,那么这个交点会被算作2次，处理办法是可以规定线段的两个端点中每个端点只属于其中一条线。  </p>
+<span id="more"></span>  
+<p>参考论文<a target="_blank" rel="noopener" href="https://blog.csdn.net/hjh2005/article/details/9246967">https://blog.csdn.net/hjh2005/article/details/9246967</a><br>参考论文<a target="_blank" rel="noopener" href="https://www.cnblogs.com/reedlau/p/5731846.html">https://www.cnblogs.com/reedlau/p/5731846.html</a><br>求交点参考直线的两点式方程</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include &lt;iostream&gt;</span></span><br><span class="line"><span class="meta">#include &lt;vector&gt;</span></span><br><span class="line"><span class="keyword">using</span> namespace std;</span><br><span class="line">struct <span class="type">Point</span> &#123;</span><br><span class="line">    <span class="type">double</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="type">Point</span>() &#123;</span><br><span class="line">        x = <span class="number">0</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Point</span>(<span class="type">double</span> _x, <span class="type">double</span> _y) &#123;</span><br><span class="line">        x = _x;</span><br><span class="line">        y = _y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">bool</span> pointInPolygon(<span class="type">Point</span> p, vector&lt;<span class="type">Point</span>&gt;&amp; <span class="type">Polygon</span>, <span class="type">int</span> nCount)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> nCross = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nCount; i++) &#123;</span><br><span class="line">        <span class="type">Point</span> p1 = <span class="type">Polygon</span>[i];</span><br><span class="line">        <span class="type">Point</span> p2 = <span class="type">Polygon</span>[(i + <span class="number">1</span>) % nCount];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (p1.y == p2.y) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (p.y &lt; min(p1.y, p2.y)) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (p.y &gt;= max(p1.y, p2.y)) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">double</span> x = (<span class="type">double</span>)(p.y - p1.y) * (<span class="type">double</span>)(p2.x - p1.x) / (<span class="type">double</span>)(p2.y - p1.y) + p1.x;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (x &gt; p.x) &#123;</span><br><span class="line">            nCross++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nCross % <span class="number">2</span> == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main()</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;<span class="type">Point</span>&gt; p;</span><br><span class="line">    p.push_back(<span class="type">Point</span>(<span class="number">268.28</span>, <span class="number">784.75</span>));</span><br><span class="line">	p.push_back(<span class="type">Point</span>(<span class="number">153.98</span>, <span class="number">600.60</span>));</span><br><span class="line">	p.push_back(<span class="type">Point</span>(<span class="number">274.63</span>, <span class="number">336.02</span>));</span><br><span class="line">	p.push_back(<span class="type">Point</span>(<span class="number">623.88</span>, <span class="number">401.64</span>));</span><br><span class="line">	p.push_back(<span class="type">Point</span>(<span class="number">676.80</span>, <span class="number">634.47</span>));</span><br><span class="line">	p.push_back(<span class="type">Point</span>(<span class="number">530.75</span>, <span class="number">822.85</span>));</span><br><span class="line">	p.push_back(<span class="type">Point</span>(<span class="number">268.28</span>, <span class="number">784.75</span>));</span><br><span class="line">    <span class="type">Point</span> test1;</span><br><span class="line">    <span class="type">Point</span> test2;</span><br><span class="line">    <span class="type">Point</span> test3;</span><br><span class="line">    test1.x = <span class="number">407.98</span>, test1.y = <span class="number">579.43</span>; </span><br><span class="line">    test2.x = <span class="number">678.92</span>, test2.y = <span class="number">482.07</span>;</span><br><span class="line">    test3.x = <span class="number">268.28</span>, test3.y = <span class="number">784.75</span>;</span><br><span class="line">    cout &lt;&lt; pointInPolygon(test1, p, <span class="number">7</span>) &lt;&lt; &quot; &quot; &lt;&lt; pointInPolygon(test2, p, <span class="number">7</span>) &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; pointInPolygon(test3, p, <span class="number">7</span>) &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -315,9 +315,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/OS/" rel="tag"># OS</a>
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
-              <a href="/tags/MIT6-828/" rel="tag"># MIT6.828</a>
+              <a href="/tags/algorithms/" rel="tag"># algorithms</a>
           </div>
 
         
@@ -326,13 +324,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="prev" title="MIT6.828课程之环境搭建">
-      <i class="fa fa-chevron-left"></i> MIT6.828课程之环境搭建
+    <a href="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" rel="prev" title="nvim安装及配置">
+      <i class="fa fa-chevron-left"></i> nvim安装及配置
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/01/16/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%A2%98%E7%9B%AE%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" rel="next" title="字符串题目处理方法">
-      字符串题目处理方法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -392,7 +387,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#printf"><span class="nav-number">1.</span> <span class="nav-text">printf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#backtrace-function"><span class="nav-number">2.</span> <span class="nav-text">backtrace function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#display-function"><span class="nav-number">3.</span> <span class="nav-text">display function</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
