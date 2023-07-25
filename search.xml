@@ -103,6 +103,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2022/12/31/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>golang学习-即时通讯系统demo</title>
     <url>/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/</url>
     <content><![CDATA[<h1 id="简易的即时通讯系统的模拟demo"><a href="#简易的即时通讯系统的模拟demo" class="headerlink" title="简易的即时通讯系统的模拟demo"></a>简易的即时通讯系统的模拟demo</h1><p>基本项目结构如下<br><img src="/2023/01/01/golang%E5%AD%A6%E4%B9%A0-%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%B3%BB%E7%BB%9Fdemo/tree.png"><br>项目地址： <a href="https://github.com/Vector-DY/Instant-Messaging-demo">https://github.com/Vector-DY/Instant-Messaging-demo</a></p>
@@ -145,27 +163,24 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/12/31/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>mem类函数模拟</title>
     <url>/2023/03/16/mem%E7%B1%BB%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>模拟实现memcpy函数<br>主要注意内存踩踏的处理  </p>
+<h3 id="memcopy"><a href="#memcopy" class="headerlink" title="memcopy"></a>memcopy</h3><p>库函数自带的memcpy只需一个字节一个字节复制即可   <span id="more"></span> </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">mymemcpy</span><span class="params">(<span class="type">void</span> *dest, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">size_t</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((dest == <span class="literal">nullptr</span>) || (src == <span class="literal">nullptr</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> *res = dest;</span><br><span class="line">    <span class="keyword">while</span> (count--)</span><br><span class="line">    &#123;</span><br><span class="line">        *(<span class="type">char</span> *)dest = *(<span class="type">char</span> *)src;</span><br><span class="line">        dest = (<span class="type">char</span> *)dest + <span class="number">1</span>;</span><br><span class="line">        src = (<span class="type">char</span> *)src + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释一下几个指针的使用，第一次看到这种语法的时候也比较迷惑。<br>void *是类型未定的指针，算是一种泛型，复制时用char *指针将每个字节复制。  </p>
+<h3 id="memmove"><a href="#memmove" class="headerlink" title="memmove"></a>memmove</h3><p>当有内存重叠的情况发生时，memcopy不能正确完成拷贝，而memmove可以正确处理。<br>从后往前拷贝即可。</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">mymemmove</span><span class="params">(<span class="type">void</span> *dest, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">size_t</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((dest == <span class="literal">nullptr</span>) || (src == <span class="literal">nullptr</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> *res = dest;</span><br><span class="line">    <span class="keyword">if</span> (dest &lt; src)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (count--)</span><br><span class="line">        &#123;</span><br><span class="line">            *(<span class="type">char</span> *)dest = *(<span class="type">char</span> *)src;</span><br><span class="line">            dest = (<span class="type">char</span> *)dest + <span class="number">1</span>;</span><br><span class="line">            src = (<span class="type">char</span> *)src + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (count--)</span><br><span class="line">        &#123;</span><br><span class="line">            *((<span class="type">char</span> *)dest + count) = *((<span class="type">char</span> *)src + count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="memset"><a href="#memset" class="headerlink" title="memset"></a>memset</h3><p>除此外还有memset填充和memcmp比较函数，与memcpy类似实现即可</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> *<span class="title">mymemset</span><span class="params">(<span class="type">void</span> *dest, <span class="type">int</span> val, <span class="type">size_t</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">assert</span>(dest);</span><br><span class="line">    <span class="type">void</span> *res = dest;</span><br><span class="line">    <span class="keyword">while</span> (count--) &#123;</span><br><span class="line">        *(<span class="type">char</span> *)dest = val;</span><br><span class="line">        dest = (<span class="type">char</span> *)dest + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="memcmp"><a href="#memcmp" class="headerlink" title="memcmp"></a>memcmp</h3><p>char*是有符号的，如果大于127即0x7F的数就是负数了,需要注意。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">mymemcpy</span><span class="params">(<span class="type">const</span> <span class="type">void</span> *str1, <span class="type">const</span> <span class="type">void</span> *str2, <span class="type">size_t</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">assert</span>(str1);</span><br><span class="line">    <span class="built_in">assert</span>(str2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (count-- &amp;&amp; *(<span class="type">char</span> *)str1 == *(<span class="type">char</span> *)str2) &#123;</span><br><span class="line">        str1 = (<span class="type">char</span> *)str1 + <span class="number">1</span>;</span><br><span class="line">        str2 = (<span class="type">char</span> *)str2 + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *(<span class="type">unsigned</span> <span class="type">char</span> *)str1 - *(<span class="type">unsigned</span> <span class="type">char</span> *)str2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>algorithms</category>
+      </categories>
+      <tags>
+        <tag>algorithms</tag>
+      </tags>
   </entry>
   <entry>
     <title>newpapaername</title>
