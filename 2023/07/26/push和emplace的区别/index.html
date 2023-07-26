@@ -20,15 +20,21 @@
     var CONFIG = {"hostname":"dyang.com.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="丁丁的博客">
-<meta property="og:url" content="http://dyang.com.cn/tags/OS/index.html">
+  <meta name="description" content="emplace是C++11标准中新增的，与push的效果相同。但在底层实现机制上有所不同：    push会先创建元素，然后将元素拷贝或移动到容器当中，若是拷贝还需要在结束后销毁之前创建的元素 emplace直接在容器尾部创建元素，省去了拷贝或者移动元素的过程。  push在底层调用的时候首先调用拷贝函数，然后调用移动构造函数，如无移动构造函数则调用拷贝构造函数。emplace直接传入构造对象需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="push和emplace的区别">
+<meta property="og:url" content="http://dyang.com.cn/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="丁丁的博客">
+<meta property="og:description" content="emplace是C++11标准中新增的，与push的效果相同。但在底层实现机制上有所不同：    push会先创建元素，然后将元素拷贝或移动到容器当中，若是拷贝还需要在结束后销毁之前创建的元素 emplace直接在容器尾部创建元素，省去了拷贝或者移动元素的过程。  push在底层调用的时候首先调用拷贝函数，然后调用移动构造函数，如无移动构造函数则调用拷贝构造函数。emplace直接传入构造对象需要">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-26T15:22:34.000Z">
+<meta property="article:modified_time" content="2023-07-26T15:30:42.378Z">
 <meta property="article:author" content="Ding Yang">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://dyang.com.cn/tags/OS/">
+<link rel="canonical" href="http://dyang.com.cn/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
 
 <script id="page-configurations">
@@ -36,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: OS | 丁丁的博客</title>
+  <title>push和emplace的区别 | 丁丁的博客</title>
   
 
 
@@ -190,77 +196,151 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpeg">
+      <meta itemprop="name" content="Ding Yang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁丁的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          push和emplace的区别
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-07-26 23:22:34 / Modified: 23:30:42" itemprop="dateCreated datePublished" datetime="2023-07-26T23:22:34+08:00">2023-07-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-meta-item leancloud_visitors" data-flag-title="push和emplace的区别" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">OS
-          <small>Tag</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-10T21:57:20+08:00"
-              content="2023-01-10">
-          01-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/" itemprop="url">
-            <span itemprop="name">MIT6.828课程之Lab1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-03T15:56:17+08:00"
-              content="2023-01-03">
-          01-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/03/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8B%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url">
-            <span itemprop="name">MIT6.828课程之环境搭建</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <p>emplace是C++11标准中新增的，与push的效果相同。<br>但在底层实现机制上有所不同：  </p>
+<ol>
+<li>push会先创建元素，然后将元素拷贝或移动到容器当中，若是拷贝还需要在结束后销毁之前创建的元素</li>
+<li>emplace直接在容器尾部创建元素，省去了拷贝或者移动元素的过程。</li>
+</ol>
+<p>push在底层调用的时候首先调用拷贝函数，然后调用移动构造函数，如无移动构造函数则调用拷贝构造函数。<br>emplace直接传入构造对象需要的元素，然后调用其构造函数。  </p>
+<p>相比之下emplace更节省内存，更节省时间。</p>
+<p>但其实C++11后，push_back在条件允许的情况下会直接调用emplace。</p>
+<p>emplace_back(type) 对应 push_back(type)<br>emplace(i, type) 对应 insert(type, i)<br>emplace_front(type) 对应 push_front()</p>
 
     </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Ding Yang WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Ding Yang Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/bitcoin.png" alt="Ding Yang Bitcoin">
+        <p>Bitcoin</p>
+      </div>
+
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/21/%E5%88%A4%E6%96%AD%E7%82%B9%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E9%83%A8/" rel="prev" title="判断点在多边形内部">
+      <i class="fa fa-chevron-left"></i> 判断点在多边形内部
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {

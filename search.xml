@@ -270,4 +270,25 @@
         <tag>string</tag>
       </tags>
   </entry>
+  <entry>
+    <title>push和emplace的区别</title>
+    <url>/2023/07/26/push%E5%92%8Cemplace%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>emplace是C++11标准中新增的，与push的效果相同。<br>但在底层实现机制上有所不同：  </p>
+<ol>
+<li>push会先创建元素，然后将元素拷贝或移动到容器当中，若是拷贝还需要在结束后销毁之前创建的元素</li>
+<li>emplace直接在容器尾部创建元素，省去了拷贝或者移动元素的过程。</li>
+</ol>
+<p>push在底层调用的时候首先调用拷贝函数，然后调用移动构造函数，如无移动构造函数则调用拷贝构造函数。<br>emplace直接传入构造对象需要的元素，然后调用其构造函数。  </p>
+<p>相比之下emplace更节省内存，更节省时间。</p>
+<p>但其实C++11后，push_back在条件允许的情况下会直接调用emplace。</p>
+<p>emplace_back(type) 对应 push_back(type)<br>emplace(i, type) 对应 insert(type, i)<br>emplace_front(type) 对应 push_front()</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>cpp</tag>
+      </tags>
+  </entry>
 </search>
