@@ -29,10 +29,9 @@
   <entry>
     <title>MIT6.828课程之Lab1</title>
     <url>/2023/01/10/MIT6-828%E8%AF%BE%E7%A8%8B%E4%B9%8BLab1/</url>
-    <content><![CDATA[<p>篇幅有限，目前只记录代码，有空再写解析</p>
-<h4 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Replace this with your code.</span></span><br><span class="line">num = getuint(&amp;ap, lflag);</span><br><span class="line"><span class="keyword">base</span> = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">goto</span> number;</span><br></pre></td></tr></table></figure>
-<h4 id="backtrace-function"><a href="#backtrace-function" class="headerlink" title="backtrace function"></a>backtrace function</h4><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">mon_backtrace(<span class="keyword">int</span> argc, char **argv, struct Trapframe *tf)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="regexp">//</span> Your code here.</span><br><span class="line">	uint32_t ebp, eip, *p;</span><br><span class="line">    struct Eipdebuginfo info;</span><br><span class="line"></span><br><span class="line">    ebp = read_ebp();</span><br><span class="line">    <span class="keyword">while</span> (ebp != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p = (uint32_t *) ebp;</span><br><span class="line">        eip = p[<span class="number">1</span>];</span><br><span class="line">        cprintf(<span class="string">&quot;ebp %x eip %x args %08x %08x %08x %08x %08x\n&quot;</span>, ebp, eip, p[<span class="number">2</span>], p[<span class="number">3</span>], p[<span class="number">4</span>], p[<span class="number">5</span>], p[<span class="number">6</span>]);</span><br><span class="line">        <span class="keyword">if</span> (debuginfo_eip(eip, &amp;info) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> fn_offset = eip - info.eip_fn_addr;</span><br><span class="line"></span><br><span class="line">            cprintf(<span class="string">&quot;%s:%d: %.*s+%d\n&quot;</span>, info.eip_file, info.eip_line, info.eip_fn_namelen, info.eip_fn_name, fn_offset);</span><br><span class="line">        &#125;</span><br><span class="line">        ebp = p[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="display-function"><a href="#display-function" class="headerlink" title="display function"></a>display function</h4><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Your code here.</span></span><br><span class="line">stab<span class="constructor">_binsearch(<span class="params">stabs</span>, &amp;<span class="params">lline</span>, &amp;<span class="params">rline</span>, N_SLINE, <span class="params">addr</span>)</span>;</span><br><span class="line">  <span class="keyword">if</span> (lline &lt;= rline) &#123;</span><br><span class="line">      info-&gt;eip_line = stabs<span class="literal">[<span class="identifier">lline</span>]</span>.n_desc;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">      cprintf(<span class="string">&quot;line not find\n&quot;</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<p>先是练手一个控制台输出的小case  </p>
+<p>探索了一下堆栈回溯的过程，输出每个eip的函数名，源文件和行号以及位置。<br>行号的输出要自己写一下。</p>
+]]></content>
       <categories>
         <category>MIT6.828</category>
       </categories>
@@ -336,5 +335,33 @@
         <tag>C++</tag>
         <tag>cpp</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>linux三剑客</title>
+    <url>/2023/07/30/linux%E4%B8%89%E5%89%91%E5%AE%A2/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>怎么不析构就置vector的capacity为0</title>
+    <url>/2023/08/03/%E6%80%8E%E4%B9%88%E4%B8%8D%E6%9E%90%E6%9E%84%E5%B0%B1%E7%BD%AEvector%E7%9A%84capacity%E4%B8%BA0/</url>
+    <content><![CDATA[<p>vector的内存占用空间不会随着clear()和erase()方法的调用而减少，元素虽然去除但是内存空间只有在vector析构的时候才能被系统回收。像resize()方法如果缩小大小，虽然后续的元素无法被访问了，但内存空间也没有被释放。<br>其实如果需要空间动态缩小，可以用deque。<br>那么在不调用析构函数的情况下怎么释放vector的内存呢。  </p>
+<p>swap方法可以交换两容器的内容。</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">arr1.swap(arr2)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这可以用来收缩内存空间，</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(v).<span class="built_in">swap</span>(v);</span><br></pre></td></tr></table></figure>
+<p>首先vector(v)利用拷贝构造函数创建了一个匿名对象，拥有全部的数据但没有空闲的空间。之后通过调用swap交换了v与匿名类的内容。<br>该语句执行完毕后匿名对象被析构，空间自动释放，达到了我们想要的效果。</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>cpp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能指针底层浅析</title>
+    <url>/2023/08/01/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E5%BA%95%E5%B1%82%E6%B5%85%E6%9E%90/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
