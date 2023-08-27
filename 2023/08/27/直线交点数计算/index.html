@@ -20,15 +20,20 @@
     var CONFIG = {"hostname":"dyang.com.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="丁丁的博客">
-<meta property="og:url" content="http://dyang.com.cn/tags/nvim/index.html">
+  <meta name="description" content="灵犀互娱笔试第五题，出自HDUhttp:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1466 假设平面上有n条直线，且不存在三条或以上直线共点的情况，求这n条直线可能存在多少种不同交点数.例n&#x3D;2,则可能的交点数量为0(平行)或者1(不平行)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="直线交点数计算">
+<meta property="og:url" content="http://dyang.com.cn/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/index.html">
 <meta property="og:site_name" content="丁丁的博客">
+<meta property="og:description" content="灵犀互娱笔试第五题，出自HDUhttp:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1466 假设平面上有n条直线，且不存在三条或以上直线共点的情况，求这n条直线可能存在多少种不同交点数.例n&#x3D;2,则可能的交点数量为0(平行)或者1(不平行)。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-27T09:14:05.000Z">
+<meta property="article:modified_time" content="2023-08-27T10:17:25.641Z">
 <meta property="article:author" content="Ding Yang">
+<meta property="article:tag" content="algorithms">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://dyang.com.cn/tags/nvim/">
+<link rel="canonical" href="http://dyang.com.cn/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/">
 
 
 <script id="page-configurations">
@@ -36,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: nvim | 丁丁的博客</title>
+  <title>直线交点数计算 | 丁丁的博客</title>
   
 
 
@@ -190,57 +195,146 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dyang.com.cn/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpeg">
+      <meta itemprop="name" content="Ding Yang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁丁的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          直线交点数计算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-27 17:14:05 / Modified: 18:17:25" itemprop="dateCreated datePublished" datetime="2023-08-27T17:14:05+08:00">2023-08-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithms/" itemprop="url" rel="index"><span itemprop="name">algorithms</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/" class="post-meta-item leancloud_visitors" data-flag-title="直线交点数计算" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">nvim
-          <small>Tag</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <p>灵犀互娱笔试第五题，出自HDU<br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=1466">http://acm.hdu.edu.cn/showproblem.php?pid=1466</a></p>
+<p>假设平面上有n条直线，且不存在三条或以上直线共点的情况，求这n条直线可能存在多少种不同交点数.<br>例n&#x3D;2,则可能的交点数量为0(平行)或者1(不平行)。  <span id="more"></span>  </p>
+<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>输入数据包含多个测试实例,每个测试实例占一行,每行包含一个正整数n（n&lt;&#x3D;20）,n表示直线的数量.</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>每个测试实例对应一行输出，从小到大列出所有相交方案，其中每个数为可能的交点数,每行的整数之间用一个空格隔开。</p>
+<p>动态规划<br>状态表示 f[i][j]表示i条直线，j个交点是否存在。<br>集合划分 m条直线的交点数 &#x3D; (m - r)条平行线与r条直线交叉的交点数 + r条直线本身交点数 &#x3D; (m - r) * r + r条直线本身交点数<br>只要f[i][j] &#x3D; 1，那f[i][(i - r) * r + j] &#x3D; 1;</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span> </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	string line;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line">	<span class="keyword">while</span> (<span class="built_in">getline</span>(cin, line)) &#123;</span><br><span class="line">		a.<span class="built_in">push_back</span>(<span class="built_in">stoi</span>(line));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">		<span class="type">int</span> n = a[i];</span><br><span class="line">		vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">f</span>(<span class="number">25</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; (<span class="number">200</span>)); <span class="comment">// 20条直线最多190个交点 </span></span><br><span class="line">		f[<span class="number">0</span>][<span class="number">0</span>] = f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			f[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt;= n * (n - <span class="number">1</span>) / <span class="number">2</span>; k++) &#123;</span><br><span class="line">					<span class="type">int</span> b = i - j - <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">if</span> (f[b][k] == <span class="number">1</span>) &#123;</span><br><span class="line">						f[i][(i - b) * b + k] = <span class="number">1</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; </span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= n * (n - <span class="number">1</span>) / <span class="number">2</span>; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (f[n][j] == <span class="number">1</span>) &#123;</span><br><span class="line">				cout &lt;&lt; j &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-07-10T12:25:29+08:00"
-              content="2023-07-10">
-          07-10
-        </time>
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Ding Yang WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Ding Yang Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/bitcoin.png" alt="Ding Yang Bitcoin">
+        <p>Bitcoin</p>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/07/10/nvim%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" itemprop="url">
-            <span itemprop="name">nvim安装及配置</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/algorithms/" rel="tag"># algorithms</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/27/CF1555D/" rel="prev" title="CF1555D Say No to Palindromes">
+      <i class="fa fa-chevron-left"></i> CF1555D Say No to Palindromes
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -287,6 +381,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Input"><span class="nav-number">1.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output"><span class="nav-number">2.</span> <span class="nav-text">Output</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

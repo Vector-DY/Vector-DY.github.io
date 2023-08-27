@@ -6,7 +6,7 @@
   <link href="http://dyang.com.cn/atom.xml" rel="self"/>
   
   <link href="http://dyang.com.cn/"/>
-  <updated>2023-08-27T08:52:41.440Z</updated>
+  <updated>2023-08-27T10:17:25.641Z</updated>
   <id>http://dyang.com.cn/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>直线交点数计算</title>
+    <link href="http://dyang.com.cn/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/"/>
+    <id>http://dyang.com.cn/2023/08/27/%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97/</id>
+    <published>2023-08-27T09:14:05.000Z</published>
+    <updated>2023-08-27T10:17:25.641Z</updated>
+    
+    <content type="html"><![CDATA[<p>灵犀互娱笔试第五题，出自HDU<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1466">http://acm.hdu.edu.cn/showproblem.php?pid=1466</a></p><p>假设平面上有n条直线，且不存在三条或以上直线共点的情况，求这n条直线可能存在多少种不同交点数.<br>例n&#x3D;2,则可能的交点数量为0(平行)或者1(不平行)。  <span id="more"></span>  </p><h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>输入数据包含多个测试实例,每个测试实例占一行,每行包含一个正整数n（n&lt;&#x3D;20）,n表示直线的数量.</p><h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>每个测试实例对应一行输出，从小到大列出所有相交方案，其中每个数为可能的交点数,每行的整数之间用一个空格隔开。</p><p>动态规划<br>状态表示 f[i][j]表示i条直线，j个交点是否存在。<br>集合划分 m条直线的交点数 &#x3D; (m - r)条平行线与r条直线交叉的交点数 + r条直线本身交点数 &#x3D; (m - r) * r + r条直线本身交点数<br>只要f[i][j] &#x3D; 1，那f[i][(i - r) * r + j] &#x3D; 1;</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span> </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">string line;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">getline</span>(cin, line)) &#123;</span><br><span class="line">a.<span class="built_in">push_back</span>(<span class="built_in">stoi</span>(line));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line"><span class="type">int</span> n = a[i];</span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">f</span>(<span class="number">25</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; (<span class="number">200</span>)); <span class="comment">// 20条直线最多190个交点 </span></span><br><span class="line">f[<span class="number">0</span>][<span class="number">0</span>] = f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">f[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">0</span>; k &lt;= n * (n - <span class="number">1</span>) / <span class="number">2</span>; k++) &#123;</span><br><span class="line"><span class="type">int</span> b = i - j - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span> (f[b][k] == <span class="number">1</span>) &#123;</span><br><span class="line">f[i][(i - b) * b + k] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= n * (n - <span class="number">1</span>) / <span class="number">2</span>; j++) &#123;</span><br><span class="line"><span class="keyword">if</span> (f[n][j] == <span class="number">1</span>) &#123;</span><br><span class="line">cout &lt;&lt; j &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;灵犀互娱笔试第五题，出自HDU&lt;br&gt;&lt;a href=&quot;http://acm.hdu.edu.cn/showproblem.php?pid=1466&quot;&gt;http://acm.hdu.edu.cn/showproblem.php?pid=1466&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;假设平面上有n条直线，且不存在三条或以上直线共点的情况，求这n条直线可能存在多少种不同交点数.&lt;br&gt;例n&amp;#x3D;2,则可能的交点数量为0(平行)或者1(不平行)。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="algorithms" scheme="http://dyang.com.cn/categories/algorithms/"/>
+    
+    
+    <category term="algorithms" scheme="http://dyang.com.cn/tags/algorithms/"/>
+    
+  </entry>
   
   <entry>
     <title>CF1555D Say No to Palindromes</title>
