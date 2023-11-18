@@ -6,7 +6,7 @@
   <link href="http://dyang.com.cn/atom.xml" rel="self"/>
   
   <link href="http://dyang.com.cn/"/>
-  <updated>2023-08-27T10:17:25.641Z</updated>
+  <updated>2023-11-18T13:10:23.085Z</updated>
   <id>http://dyang.com.cn/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>01背包恰好装满问题</title>
+    <link href="http://dyang.com.cn/2023/11/18/01%E8%83%8C%E5%8C%85%E6%81%B0%E5%A5%BD%E8%A3%85%E6%BB%A1%E9%97%AE%E9%A2%98/"/>
+    <id>http://dyang.com.cn/2023/11/18/01%E8%83%8C%E5%8C%85%E6%81%B0%E5%A5%BD%E8%A3%85%E6%BB%A1%E9%97%AE%E9%A2%98/</id>
+    <published>2023-11-18T12:52:39.000Z</published>
+    <updated>2023-11-18T13:10:23.085Z</updated>
+    
+    <content type="html"><![CDATA[<p>周赛遇到的LC.2915<br><a href="https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/description/">https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/description/</a><br>相当于01背包模型加上了一个背包恰好装满时取得的最大值</p><span id="more"></span>  <p>首先回顾普通的01背包  </p><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">    for (int j = m; j &gt;= v<span class="comment">[i]</span>; j--) &#123;</span><br><span class="line">        f<span class="comment">[j]</span> = max(f<span class="comment">[j]</span>, f<span class="comment">[j - v<span class="comment">[i]</span>]</span> + w<span class="comment">[i]</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="状态划分"><a href="#状态划分" class="headerlink" title="状态划分"></a>状态划分</h4><p>在普通的01背包中，因为不要求恰好装满，状态均初始化为0，代表的是背包为空时所包含的物体价值为0，所有没装满的状态都是有效状态。<br>在恰好条件下，需要认为背包没有恰好装满的话为无效状态，只有恰好装满时候才是有效状态。定义无效状态值为负无穷以便区分，通过判断f[v]的值是否为负无穷来判断背包是否装满。</p><h4 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h4><p>与01背包状态转移方程一致，但有效状态只由有效状态推出</p><figure class="highlight stan"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#define INF 0x80000000</span></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    <span class="type">int</span> lengthOfLongestSubsequence(<span class="type">vector</span>&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> <span class="built_in">target</span>) &#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>(), m = <span class="built_in">target</span>;</span><br><span class="line">        <span class="type">int</span> ans = -<span class="number">1</span>;</span><br><span class="line">        <span class="type">vector</span>&lt;<span class="type">int</span>&gt; f(<span class="built_in">target</span> + <span class="number">1</span>, INF);</span><br><span class="line">        f[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="built_in">target</span>; j &gt;= nums[i - <span class="number">1</span>]; j--) &#123;</span><br><span class="line">                f[j] = <span class="built_in">max</span>(f[j], f[j - nums[i - <span class="number">1</span>]] + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span> (f[j] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    f[j] = INF;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (f[<span class="built_in">target</span>] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> f[<span class="built_in">target</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;周赛遇到的LC.2915&lt;br&gt;&lt;a href=&quot;https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/description/&quot;&gt;https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/description/&lt;/a&gt;&lt;br&gt;相当于01背包模型加上了一个背包恰好装满时取得的最大值&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="algorithm" scheme="http://dyang.com.cn/categories/algorithm/"/>
+    
+    
+    <category term="algorithm" scheme="http://dyang.com.cn/tags/algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法竞赛进阶指南0x01</title>
+    <link href="http://dyang.com.cn/2023/10/06/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%970x01/"/>
+    <id>http://dyang.com.cn/2023/10/06/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%970x01/</id>
+    <published>2023-10-06T07:45:50.000Z</published>
+    <updated>2023-10-06T13:22:21.810Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="0x01-位运算"><a href="#0x01-位运算" class="headerlink" title="0x01 位运算"></a>0x01 位运算</h3><p>快速幂 通过二进制表示的值递推</p><p>状态压缩</p><p>各位独立处理</p><p>成对变换</p><p>lowbit运算</p><p>__builtin_popcount</p><span id="more"></span>  ]]></content>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;0x01-位运算&quot;&gt;&lt;a href=&quot;#0x01-位运算&quot; class=&quot;headerlink&quot; title=&quot;0x01 位运算&quot;&gt;&lt;/a&gt;0x01 位运算&lt;/h3&gt;&lt;p&gt;快速幂 通过二进制表示的值递推&lt;/p&gt;
+&lt;p&gt;状态压缩&lt;/p&gt;
+&lt;p&gt;各位独立处理&lt;/p&gt;
+&lt;p&gt;成对变换&lt;/p&gt;
+&lt;p&gt;lowbit运算&lt;/p&gt;
+&lt;p&gt;__builtin_popcount&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="algorithm" scheme="http://dyang.com.cn/categories/algorithm/"/>
+    
+    
+    <category term="algorithm" scheme="http://dyang.com.cn/tags/algorithm/"/>
+    
+    <category term="算法竞赛进阶指南" scheme="http://dyang.com.cn/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>直线交点数计算</title>
@@ -414,26 +463,6 @@
       
     <summary type="html">&lt;h1 id=&quot;test-hexo&quot;&gt;&lt;a href=&quot;#test-hexo&quot; class=&quot;headerlink&quot; title=&quot;test hexo&quot;&gt;&lt;/a&gt;test hexo&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;fum main()&amp;#123;
     print(&amp;quot;h</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://dyang.com.cn/2022/12/31/hello-world/"/>
-    <id>http://dyang.com.cn/2022/12/31/hello-world/</id>
-    <published>2022-12-30T16:41:16.958Z</published>
-    <updated>2022-12-31T15:59:56.382Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
       
     
     
